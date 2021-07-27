@@ -8,9 +8,10 @@ export const Home = (): JSX.Element => (
     </Head>
 
     <main>
-      <h1 className="title">
-        ポモドーロ・タイマー
-      </h1>
+      <h1 className="title">ポモドーロ・タイマー</h1>
+      <div className="time" data-testid="timeLeft">
+        25:00
+      </div>
     </main>
 
     <style jsx>{`
@@ -36,6 +37,10 @@ export const Home = (): JSX.Element => (
         margin: 0;
         line-height: 1.15;
         font-size: 4rem;
+      }
+
+      .time {
+        font-size: 2rem;
       }
     `}</style>
 
