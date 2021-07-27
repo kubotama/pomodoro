@@ -4,7 +4,7 @@
     "dev": "next dev -p 3030",
     "build": "next build",
     "start": "next start",
-    "export": "next export",
+    "export": "next build && next export",
     "type-check": "tsc --pretty --noEmit",
     "format": "prettier --write .",
     "lint": "eslint . --ext ts --ext tsx --ext js",
