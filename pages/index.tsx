@@ -10,7 +10,7 @@ export const Home = (): JSX.Element => (
     <main>
       <h1 className="title">ポモドーロ・タイマー</h1>
       <div className="time" data-testid="timeLeft">
-        25:00
+        --:--
       </div>
     </main>
 
