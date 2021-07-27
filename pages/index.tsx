@@ -12,6 +12,7 @@ export const Home = (): JSX.Element => (
       <div className="time" data-testid="timeLeft">
         --:--
       </div>
+      <button data-testid="timerButton">開始</button>
     </main>
 
     <style jsx>{`
