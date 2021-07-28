@@ -1,17 +1,19 @@
 import React from 'react'
-import { render, fireEvent } from '../testUtils'
-import { Home } from '../../pages/index'
+import { render } from '@testing-library/react'
 
-describe('Home page', () => {
-  it('matches snapshot', () => {
-    const { asFragment } = render(<Home />, {})
-    expect(asFragment()).toMatchSnapshot()
+import Home from '../../pages/index'
+
+describe('初期表示', () => {
+  test('「25:00」が描画されていること', () => {
+    const { getByTestId } = render(<Home />)
+    expect(getByTestId('timeLeft').textContent).toEqual('--:--')
   })
-
-  it('clicking button triggers alert', () => {
-    const { getByText } = render(<Home />, {})
-    window.alert = jest.fn()
-    fireEvent.click(getByText('Test Button'))
-    expect(window.alert).toHaveBeenCalledWith('With typescript and Jest')
+  test('「開始」が描画されていること', () => {
+    const { getByTestId } = render(<Home />)
+    expect(getByTestId('timerButton').textContent).toEqual('開始')
+  })
+  test('「作業」が描画されていること', () => {
+    const { getByTestId } = render(<Home />)
+    expect(getByTestId('timerMode').textContent).toEqual('休憩')
   })
 })
