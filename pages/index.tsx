@@ -7,7 +7,7 @@ interface TimerState {
 }
 
 export const Home = (): JSX.Element => {
-  const [state, setState] = useState<TimerState>({
+  const [state] = useState<TimerState>({
     isTimerOn: false,
   })
   return (
@@ -25,6 +25,7 @@ export const Home = (): JSX.Element => {
         <button data-testid="timerButton">
           {state.isTimerOn ? '停止' : '開始'}
         </button>
+        <div data-testid="timerMode">{state.isTimerOn ? '作業' : '休憩'}</div>
       </main>
 
       <style jsx>{`

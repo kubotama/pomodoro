@@ -12,5 +12,8 @@ describe('初期表示', () => {
     const { getByTestId } = render(<Home />)
     expect(getByTestId('timerButton').textContent).toEqual('開始')
   })
-  test.todo('「作業」が描画されていること')
+  test('「作業」が描画されていること', () => {
+    const { getByTestId } = render(<Home />)
+    expect(getByTestId('timerMode').textContent).toEqual('休憩')
+  })
 })
