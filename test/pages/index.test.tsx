@@ -1,5 +1,5 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { act, render } from '@testing-library/react'
 
 import userEvent from '@testing-library/user-event'
 
@@ -42,8 +42,17 @@ describe('開始ボタンを押した後の表示のテスト', () => {
   })
 
   describe('開始ボタンを押してから999ミリ秒後の表示のテスト', () => {
-    test.todo('「25:00」が描画されていること')
+    test('「25:00」が描画されていること', async () => {
+      jest.useFakeTimers()
+      const { getByTestId } = render(<Home />)
+      userEvent.click(getByTestId('timerButton'))
+      act(() => {
+        jest.advanceTimersByTime(999)
+      })
+      expect(getByTestId('timeLeft').textContent).toEqual('25:00')
+    })
   })
+
   describe('開始ボタンを押してから1000ミリ秒後の表示のテスト', () => {
     test.todo('「24:59」が描画されていること')
   })
