@@ -3,13 +3,22 @@ import { useState } from 'react'
 import Head from 'next/head'
 
 interface TimerState {
+  timeLeft: string
   isTimerOn: boolean
 }
 
 export const Home = (): JSX.Element => {
-  const [state] = useState<TimerState>({
+  const [state, setState] = useState<TimerState>({
+    timeLeft: '--:--',
     isTimerOn: false,
   })
+
+  const onButtonClick = () => {
+    setState((state) => {
+      return { ...state, isTimerOn: !state.isTimerOn, timeLeft: '25:00' }
+    })
+  }
+
   return (
     <div className="container">
       <Head>
@@ -20,9 +29,9 @@ export const Home = (): JSX.Element => {
       <main>
         <h1 className="title">ポモドーロ・タイマー</h1>
         <div className="time" data-testid="timeLeft">
-          --:--
+          {state.timeLeft}
         </div>
-        <button data-testid="timerButton">
+        <button data-testid="timerButton" onClick={onButtonClick}>
           {state.isTimerOn ? '停止' : '開始'}
         </button>
         <div data-testid="timerMode">{state.isTimerOn ? '作業' : '休憩'}</div>
