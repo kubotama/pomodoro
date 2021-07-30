@@ -1,21 +1,39 @@
 import { useState } from 'react'
 
+import dayjs, { Dayjs } from 'dayjs'
+
 import Head from 'next/head'
 
 interface TimerState {
+  targetTime: Dayjs | null
   timeLeft: string
   isTimerOn: boolean
 }
 
 export const Home = (): JSX.Element => {
   const [state, setState] = useState<TimerState>({
+    targetTime: null,
     timeLeft: '--:--',
     isTimerOn: false,
   })
 
   const onButtonClick = () => {
+    setInterval(() => {
+      timerCount()
+    }, 1000)
     setState((state) => {
-      return { ...state, isTimerOn: !state.isTimerOn, timeLeft: '25:00' }
+      return {
+        ...state,
+        isTimerOn: !state.isTimerOn,
+        timeLeft: '25:00',
+        targetTime: dayjs().add(25, 'minute'),
+      }
+    })
+  }
+
+  const timerCount = () => {
+    setState((state) => {
+      return { ...state, timeLeft: '24:59' }
     })
   }
 
