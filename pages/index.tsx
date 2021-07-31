@@ -31,7 +31,7 @@ export const Home = (): JSX.Element => {
     })
   }
 
-  const millisecondToMMSS = (millisecond) => {
+  const millisecondToMMSS = (millisecond: number) => {
     const second = Math.floor(millisecond / 1000)
     const minute = Math.floor(second / 60)
     let MM = minute.toString()
