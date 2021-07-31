@@ -31,9 +31,28 @@ export const Home = (): JSX.Element => {
     })
   }
 
+  const millisecondToMMSS = (millisecond) => {
+    const second = Math.floor(millisecond / 1000)
+    const minute = Math.floor(second / 60)
+    let MM = minute.toString()
+    if (minute < 10) {
+      MM = '0' + MM
+    }
+    let SS = (second % 60).toString()
+    if (second < 10) {
+      SS = '0' + SS
+    }
+    return MM + ':' + SS
+  }
+
+  const getTimeLeft = (state: TimerState) => {
+    const millisecond = state.targetTime.diff(dayjs())
+    return millisecondToMMSS(millisecond)
+  }
+
   const timerCount = () => {
     setState((state) => {
-      return { ...state, timeLeft: '24:59' }
+      return { ...state, timeLeft: getTimeLeft(state) }
     })
   }
 

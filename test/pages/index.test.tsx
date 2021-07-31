@@ -66,8 +66,17 @@ describe('開始ボタンを押した後の表示のテスト', () => {
   })
 
   describe('開始ボタンを押してから2000ミリ秒後の表示のテスト', () => {
-    test.todo('「24:58」が描画されていること')
+    test('「24:58」が描画されていること', async () => {
+      jest.useFakeTimers()
+      const { getByTestId } = render(<Home />)
+      userEvent.click(getByTestId('timerButton'))
+      act(() => {
+        jest.advanceTimersByTime(2000)
+      })
+      expect(getByTestId('timeLeft').textContent).toEqual('24:58')
+    })
   })
+
   describe('開始ボタンを押してから25分後の表示のテスト', () => {
     test.todo('「00:00」が描画されていること')
     test.todo('「作業」が描画されていること')
