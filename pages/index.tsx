@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import dayjs, { Dayjs } from 'dayjs'
 
@@ -11,6 +11,8 @@ interface TimerState {
 }
 
 export const Home = (): JSX.Element => {
+  let timerId: NodeJS.Timeout
+
   const [state, setState] = useState<TimerState>({
     targetTime: null,
     timeLeft: '--:--',
@@ -18,7 +20,7 @@ export const Home = (): JSX.Element => {
   })
 
   const onButtonClick = () => {
-    setInterval(() => {
+    timerId = setInterval(() => {
       timerCount()
     }, 1000)
     setState((state) => {
@@ -30,6 +32,12 @@ export const Home = (): JSX.Element => {
       }
     })
   }
+
+  useEffect(() => {
+    return () => {
+      clearInterval(timerId)
+    }
+  }, [])
 
   const numberTo2letter = (digit: number) => {
     let letter = digit.toString()
