@@ -31,18 +31,18 @@ export const Home = (): JSX.Element => {
     })
   }
 
+  const numberTo2letter = (digit: number) => {
+    let letter = digit.toString()
+    if (digit < 10) {
+      letter = '0' + letter
+    }
+    return letter
+  }
+
   const millisecondToMMSS = (millisecond: number) => {
     const second = Math.floor(millisecond / 1000)
     const minute = Math.floor(second / 60)
-    let MM = minute.toString()
-    if (minute < 10) {
-      MM = '0' + MM
-    }
-    let SS = (second % 60).toString()
-    if (second < 10) {
-      SS = '0' + SS
-    }
-    return MM + ':' + SS
+    return numberTo2letter(minute) + ':' + numberTo2letter(second % 60)
   }
 
   const getTimeLeft = (state: TimerState) => {
