@@ -46,8 +46,7 @@ export const Home = (): JSX.Element => {
   }
 
   const getTimeLeft = (state: TimerState) => {
-    const millisecond = state.targetTime.diff(dayjs())
-    return millisecondToMMSS(millisecond)
+    return millisecondToMMSS(state.targetTime.diff(dayjs()))
   }
 
   const timerCount = () => {
