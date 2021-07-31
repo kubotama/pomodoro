@@ -47,14 +47,13 @@ export const Home = (): JSX.Element => {
     return letter
   }
 
-  const millisecondToMMSS = (millisecond: number) => {
-    const second = Math.floor(millisecond / 1000)
+  const secondToMMSS = (second: number) => {
     const minute = Math.floor(second / 60)
     return numberTo2letter(minute) + ':' + numberTo2letter(second % 60)
   }
 
   const getTimeLeft = (state: TimerState) => {
-    return millisecondToMMSS(state.targetTime.diff(dayjs()))
+    return secondToMMSS(state.targetTime.diff(dayjs(), 'second'))
   }
 
   const timerCount = () => {
