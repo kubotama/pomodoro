@@ -1,15 +1,67 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+
+import dayjs, { Dayjs } from 'dayjs'
 
 import Head from 'next/head'
 
 interface TimerState {
+  targetTime: Dayjs | null
+  timeLeft: string
   isTimerOn: boolean
 }
 
 export const Home = (): JSX.Element => {
-  const [state] = useState<TimerState>({
+  let timerId: NodeJS.Timeout
+
+  const [state, setState] = useState<TimerState>({
+    targetTime: null,
+    timeLeft: '--:--',
     isTimerOn: false,
   })
+
+  const onButtonClick = () => {
+    timerId = setInterval(() => {
+      timerCount()
+    }, 1000)
+    setState((state) => {
+      return {
+        ...state,
+        isTimerOn: !state.isTimerOn,
+        timeLeft: '25:00',
+        targetTime: dayjs().add(25, 'minute'),
+      }
+    })
+  }
+
+  useEffect(() => {
+    return () => {
+      clearInterval(timerId)
+    }
+  }, [])
+
+  const numberTo2letter = (digit: number) => {
+    let letter = digit.toString()
+    if (digit < 10) {
+      letter = '0' + letter
+    }
+    return letter
+  }
+
+  const secondToMMSS = (second: number) => {
+    const minute = Math.floor(second / 60)
+    return numberTo2letter(minute) + ':' + numberTo2letter(second % 60)
+  }
+
+  const getTimeLeft = (state: TimerState) => {
+    return secondToMMSS(state.targetTime.diff(dayjs(), 'second'))
+  }
+
+  const timerCount = () => {
+    setState((state) => {
+      return { ...state, timeLeft: getTimeLeft(state) }
+    })
+  }
+
   return (
     <div className="container">
       <Head>
@@ -20,9 +72,9 @@ export const Home = (): JSX.Element => {
       <main>
         <h1 className="title">ポモドーロ・タイマー</h1>
         <div className="time" data-testid="timeLeft">
-          --:--
+          {state.timeLeft}
         </div>
-        <button data-testid="timerButton">
+        <button data-testid="timerButton" onClick={onButtonClick}>
           {state.isTimerOn ? '停止' : '開始'}
         </button>
         <div data-testid="timerMode">{state.isTimerOn ? '作業' : '休憩'}</div>
